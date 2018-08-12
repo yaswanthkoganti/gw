@@ -1,0 +1,8 @@
+Product designer:
+-products in insurance terms are policies,line of businesses,coverages,coverables...etc
+-coverage terms have limits(limit the claim amount) and deductables(when the vehicle got small losses then he set the amount that he cannot claim the company as he accepts this)
+-modifiers are the policy terms that we can modify and affect the policy
+-schedule credits are given by the underwriter which is gives based on additional data which is not covered in policy data
+
+patterns:
+-policyline pattern:an instance of  

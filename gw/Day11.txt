@@ -1,0 +1,27 @@
+Introduction to billing center:
+-billing process is the process in which the carrier manages the financial transactions required to keep policies in force.
+-delinquency means process of sending remainders to make payment if he doesnot pay the money they may close policy after which he can start collection of past dues using collection agency.
+-the following are the steps
+>billing instructions(Which policy period is involved,what account owns the policy,etc...)
+>Creating items for each charge(ex:if the payee wants to pay in monthly basis first time we need to pay a down payment(includes taxes and fees) and remaining as installments then we need to prepare the charge amount)
+>Schedule items on invoices(when the payee need to pay the premium installment)
+>process the payment
+>Pay commission(commission is earned only for premium amount not for taxes)
+>Close the policy(there is a column in policy period table which indicates the policy is closed or not
+>Handle delinquency and collections
+>Handle Exceptions
+-Methods to handle exceptions
+*Trouble Tickets:Process of identifying and tracking insured complaint's.
+*Activity:Allows multiple users to track and escalate an issue.
+*Hold:It is to stop the automated process.
+-Plugins in billing center are used to modify the internal functionality or to use the existing funtionality.
+-plugins vs bussiness rules
+implementd in	implemented only in gosu
+gosu and java
+have functions	 have condition and action
+-account level billing and policy level billing
+-unapplied funds when the amount is incoming to the policy they are kept in Taccount upto certain thresold after which it is distributed.
+-payment instrument
+	-payment method
+	-Token is returned from external system to identify payment instrument.
+-

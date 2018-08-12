@@ -1,0 +1,245 @@
+Guide wire Product is developed using gosu
+Guide wire 3 tier architecture
+-Data model
+-Application
+-User Interface
+Components of guide wire
+1.Claim center-Process claim to provide payments for covered losses(only mentioned in T&C) occur.
+2.Billing center-billing policy holder for policies and for managing commissions
+3.Policy Center - create,modify,renew and cancel policy
+4.Contact Manager- to manage all contact details.
+
+
+
+configuration- functionality that we perform inside guidewire tool
+integration- is interconnecting with external tools or environment.
+
+
+Training app
+
+
+Guidewire 8.0
+
+
+Application Server
+The applicatioon tier contains logic
+guidewire supports weblogic, JBoss,apache tomcat...
+
+guide wire supports oracle,sql server(datamodel)
+
+
+guide wire supports iE 8.0,7.0...(user interface)
+
+
+DB->App Server machine->User Machine
+
+policy admin Authentication document storage
+        Address book      check printing
+
+
+database :table.
+ Gosu :class
+Entity(class mapped to table)
+ex:ab_contact table
+ABContact-Instance of gosu(Enity)
+fields-name,public id...
+
+the presentation is done using pcf(page configuration file)
+
+
+Claim Center-Financials,Group access,Claim maturity,fraud detection
+Policy center-Product model, job flow,Role assgn,validation
+Billig center-Billing plans,payments,charges,Delinq(cancellation for dues)
+
+
+
+Data model-
+User Interface-
+Application logic-
+Integration mechanism-
+
+sub type-to get the specific data compared to the existing type and to inherit from the type we create sub types.
+
+
+Development mode:Just used by developers and not in use in market. only error level are displayed in logger
+Prodcution mode:The application is on live.Even warnings are displayed.
+
+
+
+
+
+
+
+--------------------------------------
+Datamodel is the set of data obj & info about their relationships
+-entities
+-entity fields
+-typelists
+
+
+
+virtual entities-These are data which need not be stored in db.They are temporary
+Subtype-These are abstract.
+
+
+Entity field:
+Data
+Foreign key
+Array key-They cannot store in database.They are used to group similar data.
+Type Key-Values that donot change frequently are given as type lists. To access them we use type keys
+ex:
+	States can be taken in list and make it as typelist
+To use this type list in an entity we have to create a typekey.
+
+Data field: Data types.
+Foreign key:
+Stores referance to related object  in the entity.
+
+Data dictionary:
+gives the information about all the entities and the data in data model and their constraints using html page
+We have to regenerate data dictionary when we create an entity
+gwXX regen-dictionary cmd is used to regenerate dic
+
+
+
+
+* For entities we can either extend the entity(modify the entity) or create a custom entity.
+Creating new entity:
+entities are declared in eti file
+Application level entities are specific to given application
+Platform level entities share the information accross guidewire application saved using eix.
+Activity is a kind of remainder. To verify the policy,accept or deny it.
+......
+extending entity
+stored in .etx
+the feilds which we create in ext are suffixed with _ext
+prior 8.0 we use entity extend using xml file
+
+When we make changes in etx we need to restart the server.
+
+
+
+Creating entity
+Almost the same as extending
+only one eti & one etx file are allowed for an entity
+extension tag is replaced by entity tag
+exportable=true makes the application accessed by web services(using soap protocol)
+
+we need to suffix custom entity with _Ext 
+
+Entity name is used to configure what we have to display the name for particular eti
+
+edge foreign key referring same type or referring two or more entities and finally reaches the same type.
+
+
+------------------------------------------
+
+
+Sub type is created by using the fields of parent type. It is mostly like inheritance in java which reuses the columns.
+Datamodel is what we see the database.
+
+when we create a sub type a gosu class is created internally
+
+
+Type list
+to populate drop down list
+tti,ttx
+type list can be reused using type filters
+we have to create type filter for the type list then based on the requirement we use them
+type filter uses include and exclude to filter
+any data model changes requires the server to be restarted.
+typelist.properties for every language for typelist file
+---------------------------------------------
+
+UI Framework
+PCF elements
+-Widget: Display elements of form
+-Location:Navigation from one section of application to other section only completing the first
+ex:Stepwise filling of forms.
+
+Widgets:
+Atomic widgets:Input(mostly used in detail views),cell(used in list views),button(for storing and displaying the value;they are dependent on other.They have to be incorporated in pcf files)
+Container Widget:holds the atomic widgets.
+Container widgets have two modes view and edit mode
+-Screen-It is a top level container.Screen contains all other widgets.We cannot display the views without the screen.It is a secondary view.It cannot hold atomic widgets directly. 
+-Input set-When we want to show data logically related we create a input set.In input set we cannot refer other pcfs.It is not standalone.It has to be referred in other panels.
+-card view panel-collection of cards each contianing detail or list view. when data is large card view is much effective.
+-detail view "-User details related and can embed other pcfs into it
+-list view "-display multiple values(array of values)
+-list detail "-combination of list view and detail view. Based on list option selected detailed view of the list element is dispalyed.
+primary view-- these are objects which can hold atomic widgets directly.
+Secondary view-- these are collection of primary views which does not hold atomic widgets directly.
+
+
+Location:
+Location Holds the widgets
+Location Group:collection of locations which are available in application.
+Page:actaul display is the page.
+Wizard:Wizards are steps and restrict users to perform the steps in sequential way.
+pop up:Helps to display the details of hyper link in a popup when we click it inside the application.  
+worksheets:It dispalys 
+forward:Redirect to pages based on conditions.
+exit point:redirect to outside application without decisions
+
+
+
+best example for reusable code:GlobalAddressInputSet.default
+
+Internal Debug tools for pcf
+config.xml EnableInternalDebugTools="true"(default)
+Application not in studio.....
+Alt+Shft+I-the information about that pcf file is displayed
+Alt+shft+L-to reload page configuration files (pcf file doesnot need restart of server but when data model is changed we need to restart the server)
+Alt+shft+W-to inspect the data of pcf
+Alt+shft+E-open the location in studio
+
+
+
+DV-Detail view
+LV-List "
+InputSet-inputset
+CV-Card View
+LDV-List Detail "
+Screen-screen
+LG-Location Group
+Wizard-wizard
+Popup-popup
+
+ctrl+N-search class
+ctrl+shft+N-search file
+
+PCF contains
+
+pcf canvas
+toolbox
+structure
+properties
+
+property has many properties.All the atomic widgets should not have same properties. Mostly used are
+visibility(highest precedence)
+|
+availability
+|
+editablility
+|
+required
+Id
+
+
+when the content is within the same file then it is viewed as white.
+if it is reference for other file light purple.
+if it is reference for the file in which it is refered then it is in dark purple. 
+
+
+------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+User Id:amaarshj
+ 

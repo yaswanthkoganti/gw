@@ -1,0 +1,114 @@
+Predefined plugins:These are gosu or java classes(outbound and synchronous)
+webservices:external application calls(synchronous and inbound)
+-messaging is a guidewire integration mechanism.(outbound and asynchronous)
+-Startable plugin is a mechanism that listens requests from external system.(asynchronous and inbound)
+-batch process is a background process that performs a periodic task.(scheduled and outbound)
+
+gosu integration:
+-gosu is used to create new classes,extend classes,to write queries.
+logging:
+-integration is mostly background task so logger is most important.
+-code inside gosu class can contain exception handling.
+-blocks in gosu classes:
+	-(\arguments->logictoexecute)
+	-ex:var gen=aContact.contactnotes.where(\notes->notes.Type=="hello")
+--------------------------------------------------------------------------------------
+Gosu Bundles:
+-bundle is a in memory entity instances that represent rows in database.
+-using bundles we can add,delete,update data in entities.
+-bundle we use need to be commit manually.
+-two types of bundles
+	-readonly(we cannot change)
+	-writable(we can change the values)
+-two contexts
+	-Current Bundle:
+	-New bundle:integration code creates new bundle
+-automatic bundle processing 
+-manual bundle
+	-no automatic commit.
+-gw.transaction.Transaction.getCurrent() gives current bundle
+-current bundle gets autocommited.
+-if we maually specify commit the next steps dont get commited.
+-create a new bundle 
+ gw.transaction.Transaction.runWithNewBundle(\newBundle->{
+codeBlock},//user)
+-if we give like this no need of commit statement explicitly.
+-we can also create new bundle like gw.transaction.Transaction.createNewBundle().//add the entity
+-for this we need to specify the commit statement explicitly.
+-we can set the foreignkey relation using bundle using
+	-field of entity is set to object
+	-or the foreignkey which we set by adding the entity to array of referenced entity.
+-entityName.Changed
+-entityName.isFieldChanged("fieldname")
+-entity.getOriginalValue("fieldName")
+------------------------------------------------------------------------------------------------------
+Integration:
+-Mechanisms and concepts we should be aware of 
+webservices:
+Plugins:
+Messaging:
+BatchProcess:
+
+**publishing and consuming are the two tasks.
+
+*database-config.xml(configure jndi)
+*config.xml
+*suite-config.xml(used to communicate between 3 systems pc,bc,cc)
+*property files
+-plugin is an interface which provides communication between two system.
+-plugins are of different types:
+	-startable
+	-messaging
+		>Reply plugin,Request plugin,Transport Plugin(main which is used to send messages)
+	-Predefined plugin
+-.gwp file(registry file)
+-plugins are stored in registry
+-we create a new plugin file by using any of the predefined interface
+-we can add plugins to this there are 3 types of plugins
+	-gosu plugin
+	-java plugin
+	-OSGI plugin
+-to use this we need to implement the interface and override all the methods
+-then we need to point the class in the plugin
+-to make changes in registry we need to restart the server.
+-to use the parameters in plugin we can set parameter and they can be used only when we implement Initializable interface for that class.
+-startable plugin is the plugin that executes automatically when we start the server.
+--------------------------------------------------------------------------------------------------------------------
+Webservices:
+-to provide communication or inorder to access the functionality of one web application in another.
+-wsdl:webservice description language is used to provide information about the functionality that the system provides.
+-SOAP and JSON is used to communicate between two web applications.
+  | 	    |
+  xml	   JSON
+-there are different types of encoding
+	-RPC encoder-we have param names,method names and values
+	-RPC literal-only param names and method names are described in WSDL
+	-Document literal-PC8.0 depricated above two for publishing(because conversion is difficult) only values we have.This is also known as WS-I
+ 
+-To webservice we can export DTO,typekey
+-we cannot export entity.
+serialization can be done by using annotation @WsiExportable and the class must be final
+-Serialization(GosuDTO->xml/JSON){marshalling}
+-deserialization(xml/JSON->Gosu Obj){unmarshalling}
+These can be done automatically.
+-@WsiPermissions({}) is the annotation that is used to pass the permissions.
+If we not pass any parameter then it gives full permissions and anyone can access
+If we not declare this by default the system administrator permission is granted
+-@WsiAvailability(MULTIUSER)-everyone can use this web service
+MAINTANaNCE and DEAMON are other levels of availability
+-gwta regen-wsi-local(one way to create WSDL)
+apacheCXF is used to generate java files from wsdl.
+-If we declare an annotation @WsiWebMethod(true) to make the method not available through wsdl.
+-If we want to expose a method in other way(other name) we can use @WsiWebMethod("methodname to be displayed",true)
+-To publish we want to create a Collections file(wsc file)
+-We have to provide the wsdl link
+-when we give fetch updates automatically a folderwith filenameof wsc is created with a schema definition file and wsdl file 
+-------------------------------------------------------------------------------------------------------------------------------
+Messaging:
+-messaging-config.xml
+-If a entity has event as its element then it is event aware.
+-then we configure the xml file in which it points to the class which implements messaging system.
+-then we will write a ruleset in which we checkfor particular entity and then createmessage which will be sent to sendmethod as payload.
+-this sendmethod is then made available to webservice to call from external system.
+
+-when we write the 

@@ -1,0 +1,93 @@
+Gosu:
+	var _varname:datatype as varname
+-to create a package we have to craete inside
+	config/gsrc/companyname/domain/classes/class name
+-
+-encapsulation in gosu is done by enhancement
+config developers use gosu classes static methods mostly.
+integration developers use non static methods and static methods.
+static methods are used for 
+-validations and forms inference in policy center
+-Dynamic assignment and SIU lifecycle in billing center
+
+
+To create a class
+-We create a new package
+-create class
+-define properties and methods
+-deploy package and class
+-refer the class
+
+class name should be in pascal case
+method names should be in camel case
+
+
+Gosu enhancement:
+-gosu enhancement is code that enhances the func of existing entity.
+-enhancement file extension is .gsx
+-gosu enhancements can be written for entities or for java class
+-configuration developers mostly deal with enhancement.
+package structure is same as gosu classes but stored in enhancements and inside it based on the enhancement type(java class or entity) the sub folder is choosen.
+-Enhancements for entities have setters,getters and methods
+-getter and setter will not store the value into the database.
+Syntax:
+-------
+enhancement  EnhancementName:entity.EntityName{
+property get Propertyname():return type{
+//to access the properties of the object we use this.
+//logic
+return value
+}
+}
+property set Propertyname(var varname:type){
+//to access the properties of the object we use this.
+//logic
+}
+}
+
+function functionName()
+{
+}
+to get the value we use referencename.property
+to set value we assign value to the referancename.property=value
+
+debug is used to verify where we commit mistake while coding using breakpoints,watchersetc..
+to view all the breakpoints the shortcut is ctrl+shft+f8
+alt+shft+f9-debug server.
+
+Script Parameter:
+-It acts like a global variable.
+-They are used in
+BC:delinquency
+pc:rating
+-configuration developers define script parameters
+-can be referenced anywhere as read only values in gosu code
+-scriptparameter can be defined in ScriptParameters.xml
+-Ex:
+ <ScriptParameterPack ParamName="RecordInHistory_UserViewsOfContacts" ParamType="bit">
+      <ParamValue>true</ParamValue>
+if we alter existing then alt+shft+l if we create new one we have to restart the server.
+refer scriptparameter in code
+ScriptParameter.parametername
+
+
+-----------------------------------------------------------------------
+EntityNames:
+-Entity names are used to customize the fields of entity(ex:first name and last name can be displayed as displayname.
+-entity name has the extension .en
+-entity names has name,entitypath,sortpath,sortorder
+-datetime by default without concatenation gives longdate format
+-datetime when concatenated with a string gives in shortdate format
+-for typekey in return statement we get the typecode directly if we not specify.displayName in return statement
+-If an entity has no entityname and you want to use it then it displays all the details of entity.
+-we can specify custom names which is used to get the values in different ways.
+-we can call it using obj.getDisplayName(type) type-is the type given for custom name
+-if we use the foreign key relation then we must tick the use entity feild.Else it will not return the corresponding display name.it will return the object.
+------------------------------------------------------------------------
+Dependent Dropdown:
+-one drop down dependent on the other drop down.
+-they relate typecodes with other type codes.
+-In child we add category for the parent typecode to make dependent.
+-both parent and child should be 
+-one type key has only one keyfilters.
+-keyfilter is used to relate the parent and child.

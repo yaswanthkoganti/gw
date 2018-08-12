@@ -1,0 +1,92 @@
+PCF:
+Atomic widgets
+-to get data from database(populate from database) we use variables which can bind to entities or virtual properties.
+-each atomic widget can be bound to only one field.
+-In properties if we create property it should start with capital
+-the id field in property should start with small letter and it should be unique.
+-value attribute is used to specify the value of the atomic widget.the atomic widget will automatically accessible in both edit and view modes
+
+
+
+Data        			InputWidgets        cell widgets
+varcahr,integer,decimal 	Text Input		Text cell
+varcahr,shorttext,longtext	Text area		Text area cell
+,mediumtext,text
+date,date time			date input		datecell
+money				monetary amount input	monetary amount cell
+bit				Boolean dropdown input	checkbox cell,radio button cell
+				boolean radio button "
+				checkbox input
+array				range input		range cell
+				range radio button "	range radio button cell
+
+typekey				typekey I/P
+				typekey radio button i/p  typekeycell
+ 			
+
+
+-Supertype as subtype.field  -- cast the object to subtype
+-label is used to give name to the widget.
+-one way by giving the values directly in "" of label value property
+-other way is by assigning the value in displayKeys.property file and referring them where we require.
+-to display the data dynamically then we need to specify them using({0},{1}) it shows the label accepts 2 dynamic parameters
+-the values for the parameter is given in label properties value.
+-the values for the properties can be dynamic but based on datatype of the property except for Id.
+
+
+Detail view:
+-input columns can be used for alignment
+-layout widgets can be used to provide the contents effectively
+-to include the detail view in the screen we should create a panel ref in the page where we want to include pcf
+-panel ref is used to refer other views in screen
+-panel ref contains def property. which is used to refer the view. we need to pass the root object of the view from the def property.
+
+
+
+Editable detail view:
+if the parent is editable then only the child views can be editable
+default value of list detail view and card view is false and for others it is true.
+
+-to place edit buttons in the screen.screen must contain toolbar.
+
+--------------------------------------
+Input Set:
+-To add inputset into the pcf then the pcf file must contain Input column.It will automatically creates input column if it doesnot exists.
+-Input sets created as separate pcf file can be reused using the inputsetref in different pcfs.
+-Input sets can be classified as shared logic and reusable input sets.
+-if we create a reusable pcf then the root object(required variable) must be specified.
+-if we use inline(shared logic i/pset) then the root object of parent can be used by the inline pcf.
+
+
+
+
+List view:
+
+-list view is displayed using row iterator.
+-row widgets defines collection of columns to be iterated.
+-cell widget is individual column in row.
+-list view also takes the root object(required variable).
+-row iterator is also a widget it processes and generates the row widgets and cell widgets.
+-row iterator has three main properties value,editable and element name.
+-we have to define properties for rowiterator and for cells.
+Toolbar is must in listview
+
+
+Editable List view:
+-Iterator buttons are used to add,remove or modify the cells
+-list view panel contains iterator buttons
+-edit buttons are placed at screen level
+-checkbox can be hidden using hidecheckboxifreadonly.
+-location: startineditmode
+alwaysineditmode
+
+iterator buttons:
+-add iterator button
+-link iterator buttons to row iterator
+		-right click on iterator button
+		-linkiterator
+		-select the iterator 
+-toadd and toremove property
+-hidecheckbox if readonly
+
+ userId:kothai.T

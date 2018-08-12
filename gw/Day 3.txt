@@ -1,0 +1,127 @@
+Modes:
+-modes is based on how we present the screen in different ways in different perspectives.
+-if there are 1 super type and 2 sup type entities then we need to create 4 pcf files(2 sub,1 sup,1 default).
+-all the 4pcf files have the same pcf name with different mode names which are names of corresponding entities.
+eti 
+-modes can be done only for entities which have subtypes.
+
+
+Screen connects views and locations.
+------------------------------------
+push is recommended for popups,exitpoints and wizards.
+go is  " for location groups,pages,wizards,forwards.
+goInWorkspace " for worksheets.
+
+
+
+popup:
+-In guidewire popup wont give multiple rendering of screen.
+-canedit is the property which is used to set either the popup is editable or not for particular user also
+-------------------------------------------------
+Gosu:
+-from guidewire 8 gosu is case sensitive.
+-gosu contain
+	-bussiness rules:all the business logic are performed.
+	-entity enhancements:it is used as entity methods.getter and other operations for particular entity.(setter need to know).
+Entity names:
+To dynamically derive the names for the drop downlists and entity instance.
+Gosu classes:
+Encapsulate data and business logic.
+Workflow:
+Asynchronous execution of tasks which run concurrently based on time.
+
+
+gwXX regen-gosudoc(gosu api reference)
+
+scratch pad executes on debug server separate from normal execution.
+alt+enter-get auto import packages
+ctrl+P-gives information about method arguements
+ctrl+B-open declaration.
+alt+f5-open debug window
+alt+f4-run window
+
+gosu scratch pad compilers for guidewire are different from normal gosu compilers.
+gosu uses null safety.
+
+gosu statement:
+var variable name : datatype=initial value
+if int variable is assigned with null it converts to 0.if we explicitly mention null then it shows runtime exception
+In configuration we use mostly gosu.
+primitive datatypes in gosu cannot hold null values
+Avoid using semicolon is the standard.
+If we don't use package it will automatically gets commented
+
+gosu support static methods
+
+Creating object var obj=new Class/Type();
+same as java we use obj.propertyname to access the property.
+by using 'as' we type cast parent entity into sub type.
+typeis is used to check whether the object is of given type or not
+		-no need to cast the object explicitly.
+
+variables if type is not specified dynamically assigns to given value.
+
+Arrays:
+
+while using array key the fields referred has foreign key relationship with this arraykey field
+var a=new int[3]
+var b=new int[]{1,4,5}
+var c:int[]={1,2,3}
+
+addto and removefrom are used to add details to array key and removefrom is to remove value from array.
+
+where-returns all the values which matches the given condition
+hasmatch-returns true or false
+countwhere-gives the count of matches
+firstwhere-returns first match element
+
+array.XXXXX(\ name->conditionToMatch)//for single line if multiple lines are there we use{}
+
+
+
+gosu Query:
+
+to use queries we need to import gw.api.database.Query
+
+type#feature to make sure the query is type safe
+
+
+queryNull.compare(entity.property,Equal/NotEquals,null)
+
+queryObj.or and .and
+
+between()
+compareIgnore()
+contains()
+subselect()
+startsWith()
+
+
+to perform sorting we use
+orderBy()
+orderByDescending()
+to perform sorting after order by is done
+thenBy()
+thenBYDescending()
+
+AtMostOneRow-used when the result set contains only one row 
+if no row-null
+if multiple row-exception
+
+RuleSet:
+EventMessage:Perform eventprocessing and generate messages about events that have occured
+Preupdate:perform validation and logic that must perform before committing into database
+validations:to check for correctness of data.
+overall file .grs extension
+for rules .gr is the extension
+isFieldChanged()
+getOriginalValue(type#property)-returns the original value of the property
+
+to edit a grs file and to apply changes we need to reload the classes instead of restarting
+to deploy new rule we need to restart the server
+
+debug server
+alt+shft+f9
+
+
+praravi

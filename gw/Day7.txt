@@ -1,0 +1,63 @@
+field level validation:
+validation can be done in two ways
+-Column level in the entity(validation at data model level)
+-for particular pcf(pcf level validation)
+-field level validation is validation at data model level.
+-to perform field level validation we use validator and it can be used for several fields
+-validator contains
+	-name:
+	-value:
+	-description:
+	-mask:
+-for description we use displaykeys
+-It should be specified in fieldvalidator.xml
+-The root tag is ValidatorDef tag
+-we associate the validator with column using columnparam
+-validators cannot be seen in data dictionary
+UI level:
+-If we want the same field to be treated in differnt ways in different pcf's
+-for pcf level validation we have validationexpression
+-In this property we check for condition and display the error message
+-we have other property requestValidationExpression
+-the difference is request property is server level
+-----------------------------------------------------------------
+Underwriting authority:
+-If policy has risks or issues then it will go for underwriter.
+-Quote value is the approximate premium amount that is estimated based on given data.
+-underwriting authority provides underwriting rules and an underwriting infrastructure.
+-underwriting issues creates in following ways:
+	-automatically,based on choices
+	-manually by the agent for approval
+	-optioanlly,
+-uwissues automatically removed when condition go away.
+-when we quote the jobprocess is evaluated using ipolicyevaluator plugin specific for line of business with a implemented class.
+-if the condition fails then uwissue is raised.
+-to check for the condition we use comparator.
+-blocking point stops progress until underwriter approves.
+-blocking point contains typelist for this.
+-checkingset represent point where the uwissues may raise.
+-ipolicyEvaluatorplugin triggers and calls evaluator classes to check and raise underwriter issue.
+-we add uwissue by using assIssue(issuetypecode,key(unique key,should not change in production),shortDescription,longdescription, )
+
+uwissuesapproval object:
+-the approval process contain
+	-approve
+	-reject
+	-reopen
+-underwriter issues can be raised at any level and same issue can be used multiple times.
+-Underwriter issues are defined in systemtable
+-authority profile:the users who can approve uwissues
+-authority grants:the approvable issues that the user can do are specified in grants.
+-auto approvable issues are automatically approved.
+-autoapprovable,defaultbindbefore,...etc are columns of system table.
+Creating underwriting authority:
+-define new isssue type
+	-add values defining new issue type.
+	-create values approving new issue type.(autoapprovable,defaultbind etc..)
+-add function to raise issue in pa_underwriterEvaluator.
+-add authority grant to approve issue
+-------------------------------------------------------------------------
+PreupdateHandler:
+-replacement for preupdate business rules.
+-It is a plugin which contains implementation classes.
+-The two things which can be done are overriding and 

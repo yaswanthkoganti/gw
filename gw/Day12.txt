@@ -1,0 +1,3 @@
+Trouble Tickets:
+-They are used to handle and track issues that relate to customer and producer accounts
+-trouble ticket can be assigned to user or group

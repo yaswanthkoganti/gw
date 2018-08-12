@@ -1,0 +1,111 @@
+Partial page update:
+-The page contains some static properties and dynamic properties.
+-static properties cannot change asynchromously.
+-dynamic properties example are value,editable,label,visible etc..
+-based on the conditions the properties get change.
+-no data is commited because the change occurs in same page.
+-postonchange property is used to make partial page update.
+-postonchange has following
+	-disablePostOnEnter:disable the change for certain conditions
+	-onchange:Specify the action to be performed.
+	-target:specifies the target widget which must change
+-DataUpdate		Layout re-render
+DATA_ONLY	 	changes the other target widget
+layout won't change	layout changes
+best performing.
+---------------------------------------------------------------
+Policy Center:
+-policy center entities:
+	-each entity requires an object to access the entity
+	-metadata entity needs to be extend for change.
+	-to get policy we need an account and then get many policies.
+	-account can be of organization or individual.
+	-producer is a middle man that connects accounts to carrier
+	-creator-creates the policy,underwriter-checks for all the policy terms,auditor-audits the policies.
+	-contact is the actual person who gets accounts.
+	-location mspecific policies exists.
+	-policies are underwritten files.
+	-transactions are the jobs we perform.
+	-activity is the task required to manage the account.
+	-document:information relevant to account.
+	-notes:some records maintained for the user are noted.
+-Policy is contract b/w carrier and contact with insured coverages.
+-coverages can be at policy level
+-coverables are the actual things that can be claimed.
+-property coverage:damage happen to the contact who got the policy
+-liability coverage:damage hapen to third party because of the contact who got the policy
+-Coverage term:limits and deductions are given under coverage terms.
+-form:It is details of policy.
+-premium:the amount to be paid.
+-tools:these are used in application.
+-policy contract data:part of the contract.
+-tool data:information about history and policy.modifications done on this will not modify the policy.
+-based on details provided.the quote will be done and premium is calculated.
+----------------------------------------------------------------------------------
+Policy ceneter job widgets:
+-rule set
+	assignment-determines party responsible for an assignable activity
+	audit-provides validation rules for auditing
+	event message-to display when we 
+	renewal-
+	validations
+Donot do these
+-drop database using gwpc dev-dropdb
+-delete typecodes using typelist editor
+-delete product model pattern.
+
+gosu classes and rules in debug mode.
+----------------------------------------------------------------------------------
+Policy Transactions:
+policy term:expiration date-effective date
+renewal term:After expiration date the policy can be renewed.
+submission->policy->changes
+		  ->Renewals->non renewals->policy ends
+		  ->expiration->policy ends
+		  ->cancellation
+			/\
+		       /  \
+	Reinstatements	   Rewrites(create entirely new policy)
+(the policy ends again we need to start this policy)
+
+-To rewrite we have to cancel the policy
+-effective date for reinstatement is the same as previous but for rewrite it is new.
+-midrewrite-replaces part of the policy terms and have same expiration.
+-rewrite new account move account from one account to another.It takes data from existing and writes new policy.
+-audits can takes place at anytime.
+-audits are done to update policies regarding premium.--Jobprocesses is common for all thejobs.
+-jobprocesses 
+submission process
+full app quote->submission->edit submission->save draft->bind & issue
+				|		|
+				withdraw--------|
+
+levels:
+page level,quote level
+external systems:
+policy center is mapped to external tools(ex:for calculating premium we use rating engine)
+-------------------------------------------------------------------------------
+Policy center data model:
+-Policy and contacts has one to many relationships.
+-Account and policy one-many relationship.
+-coverage(accidental or fire) and coverables(the product which we take policy)and coverage terms(limitations for coverage)
+-one policy can have multiple line of bussiness.
+-Activity are automatic actions that occur asynchronously which are assigned.
+-notes are data which is used to make note about the transaction when performing next time we can be clear.
+-producer is the middle man who helps to make the clients for the insurance company.
+
+
+-----------------------------------------------------------------------------------
+Location groups and pages:
+-it can contain a page or another location group.
+
+--------------------------------------------------------------------------
+job wizard:
+-Wizard contains screen in which wizard is kept.
+-jobwizard toolbar is common for all the job wizards.
+-A wizard can contain wizard stepset.
+
+
+
+what are the entities that come from ootb?
+

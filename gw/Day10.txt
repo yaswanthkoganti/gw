@@ -1,0 +1,58 @@
+Message Triggering:
+-EventAwareEntity,MessageContext,Message
+	|		|	    |
+  entity having     virtual entity  it is an entity contains the payload that needs to be sent to external system.
+events field is	     used for 			(messagename,payload,eventname)
+event aware	     generating
+(added,Removed,updated payload
+ootb events available)
+-To add an event(custom) we use entity.addEvent("customEventName")
+-To identify the destination we use destination Id(unique from 0-63 only we can use).
+-transportplugin is mandatory field.
+-alternate primary entity is used for safe ordering.
+-event fired rules:
+	-Event fired rules execute child if parent is true only else child willnot be triggered.
+	-datachanges in event fired rules it donot trigger preupdate or validtion.
+	- avoid data changes for the outside fired ruleset.
+
+Message Payload:
+-Data generated in event fired rules that is to be passed to external system.
+-when we want to send the data which contains late binding value(dynamic value ex:timestamp of message received) we use the template and request plugin is used
+<@@ @@>
+-gosu template is as of now we are not using.
+-xml model is a gx model in guidewire
+-to create a gx model we need to select the entity.
+-xml model fields have key property and normal property.
+-We use this gx model is used to create payload
+var xml=fullyqualifiednameofgx.entitytype
+if we use xml.asUTFString() in create message it will create the payload.
+---------------------------------------------------------------------------------------------------------
+Messaging:
+-request used for latebinding
+-transport-sends the message to external system
+-reply-used for acknowledgement
+-In request plugin we can pass senderRefId which is stored at message table.
+-request plugin contains beforesend()(used for late binding)
+-If message failed to reach external source the retry takes place based on
+	-maxretry field in message table
+	-manually retry.
+----------------------------------------------------------------------------------------------------------
+Batch process:
+-Batch process are background tasks.
+-4 types of batch processes
+	-schedulable:Based on timer
+	-API runnable:through an external web service 
+	-Maintanence:Used 
+	-UIRunnable
+------------------------------------------------------------------------
+Conversion:
+
+-Migrate data from legacy to guidewire application.
+-two types of appropach
+	-bigbang
+	-renewal
+-Flatfiles are converted to pc data using informatica,etc.. by intermediate representation etl(extract transform load)
+source(flat files)->source staging(cleaning activities)->Target Staging(many activites to match the data with PC system)->policy migration
+-bigbang approach we perform transfer of data.
+
+-

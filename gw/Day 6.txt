@@ -1,0 +1,82 @@
+contact and location:
+Account also denotes a contact.
+line of business is the type of policy we take.
+each account can have multiple policies
+rewrite has
+-rewrite fullterm:deleting the existing policy and creating new policy within the same account.
+-" midterm:expiration date should not change because it is like changing the policyterms
+-" new account:creating a policy in new account which is taken from existing account.
+roles:insured,driver,additional insured,account holder etc...
+Location:physical place(what the loctaions he was aware of)
+-Contacts can be divided into account level and policy level contact.
+-all policy level will be automatically added to account level.
+-contact is ultimately a person or company.
+-contacts entities that are extendable include:
+policycontact and accountcontact.
+when we create a policy job entity and policyperiod record will be created.
+one account contact role can have multiple policy contact role.
+entity types-subtype,delegate,viewentity
+to create an entity it is subtype of either accountcontact role or policy contact role.
+to provide synchronization between account contact role and policy contact role we use contactconfig
+syntax:new ContactConfig(enable,{contactRoleType},AccountContactRole,{PolicyContactRole1,....})
+we can have modes for any type of pcf file.
+Locations:
+-policy locations are locations which will be also available for account level but vice versa is not required.
+-policy term is created for new submission,renewal,rewrite.
+-account numbering and policy numbering are separate for locations.
+-when we remove a location from a policy then the numbering changes occur after next transaction.
+-for specific line of business we create location entities.
+-Account.newLocation will create new location for account level
+-For location we create only object for the account location or policy location.
+
+
+
+Policy Revisioning:
+-when we change policy with same effective date then it doesnot come under revisioning.
+-revisioning uses versions for tracking the changes.
+-effdated entities are helpful in tracking data with respect to effectivedates.
+-the data that doesnot need versions is defined as type retireable(it stores the latest updated value).
+-effdated entities needs versioning.
+-effdated entity should point to policyperiod entity.
+-effDatedBranchType="PolicyPeriod"
+-policyperiod entity is not effdated.
+-effdated entity properties:
+	>Effective date and expiration date null value refers to values as its parent(version).
+	>Fixed Id:For effdated entities this field is maintained to identify and group the policy changes even normal ID changes until new object is created.
+	>Branch:links policyperiod to effdated entities.
+	>BasedOn:Based on points to object of previous record before change occurs(previous version).
+
+-when ever we perform policy change version will be created and policy period will be created for that version. 
+-we can perform policy change for future dates also then the effective time is the future date and the date we perform policy change is model time.
+-two modes can be used by effective date.
+	>slice mode:For a particular date we are fetching the details.
+	>Window mode:gives all the versions of the policy data.
+-To get sliced version we use
+syntax:
+	slicedPolicyPeriod=aBranch.getSlice(sliceDate)
+	sliceView.datatobeviewed.
+-to get window mode we use
+	versionList.AllVersions-gives all the versions data.
+	VersionList.AsOf(date)-gives the version available after that particular date.
+
+
+
+--------------------------------------------------------------------------------
+Revisioning contact and location information:
+-data specific to policy period is data inside policy oeriod.
+-some details are only for account level but not shared for policies
+-future dated revisioning:details changed for future dates
+-backdated revisioning:details changed for previous data and change should reflect from effective date.It is back dated.
+------------------------------------------------------------------
+Users,groups,organization and permission:
+-for risk involving tasks agents cannot directly take decisions a hierarchy is required above him for approval.
+-In rolebased the super user permissions are given for superior users.
+-In databased based on the data the access is granted.
+-Internal producers & external producers.
+-Producer of record & producer of service
+Producer of record:people created or performed submission for the clients.
+Producer of service:he person who service for the policy.
+-producer code is unique for the producers.Producer code can have multiple agents.
+-super users can have a team to serve many risky activities.this team is known as queue.
+
+

@@ -1,0 +1,54 @@
+Documents:
+-
+
+
+--------------------------------
+Rating:
+-The process of determining the premium amount.
+-IRatingPlugin-interf
+	\
+	 \
+	  SysTablePlugin
+		/ \
+	       /   \
+	    CostData\
+		     Abstract rate engine
+
+--------------------------------------------------------------------
+Gunit:
+-Used to test gosu code except rules and user interface.
+-class ends with test function name starts with test.
+-testharness.TestBase class is esxtended to our class.
+-when we need to test soap calls we use @SoapLocalTest annotation.
+-To run GUnit we need start separate server.
+-Every method is tested 
+--------------------------------------------------------------------
+Authentication integration:
+-verifying the credentials of the user.
+-Authentication Source creator plugin.
+-authentication service plugin.(verfies the credentials)
+-AuthenticationSourceCreatorPlugin interface with required method createSourceFromHTTPRequest
+throws InvalidAuthenticationSourceData.
+-AuthenticationServicePlugin interface with required method setCallback()
+-DBAuthenticationPlugin 
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+For each account at a given instance one message will go
+non safe ordered with each for different account will 
